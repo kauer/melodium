@@ -1,0 +1,178 @@
+:root{
+  --bg:#0f0f10;
+  --panel:#121214;
+  --muted:#bfc4c6;
+  --accent:#2ea043;
+  --card:#18181a;
+  --glass: rgba(255,255,255,0.03);
+  --radius:12px;
+  --gap:20px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+  background:linear-gradient(180deg,#0b0b0b 0%, #0f0f10 60%);
+  color:#e6e6e6;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Topbar */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 24px;
+  background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-bottom:3px solid rgba(80,150,250,0.08);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.topbar .avatar{
+  background:linear-gradient(180deg,#0d0d0d,#141414);
+  padding:6px 12px;
+  border-radius:10px;
+  text-align:left;
+  font-size:13px;
+  color:var(--muted);
+}
+.logo{
+  font-size:28px;
+  padding:6px 12px;
+  opacity:0.9;
+}
+.right .btn.search{
+  background:#16341a;
+  border:1px solid rgba(255,255,255,0.04);
+  padding:8px 12px;
+  color:#dff1d9;
+  border-radius:8px;
+}
+
+/* Tabs row */
+.tabs{
+  display:flex;
+  gap:12px;
+  padding:16px 24px;
+  align-items:center;
+  background:transparent;
+}
+.tab{
+  background:transparent;
+  border:0;
+  color:var(--muted);
+  padding:8px 16px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.tab.active{
+  background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color:#fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* Layout */
+.container{
+  display:flex;
+  gap:var(--gap);
+  padding:28px 32px;
+  min-height: calc(100vh - 240px);
+}
+.tabcontent{display:flex; gap:var(--gap); width:100%}
+.tabcontent:not(.active){display:none}
+
+.left-col{flex:1}
+.right-col{width:420px; max-width:45%;}
+
+/* Map card */
+.mapcard{
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  border-radius:14px;
+  padding:18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+.mapcard.small{padding:12px}
+.map{
+  width:100%;
+  height:auto;
+  border-radius:10px;
+  display:block;
+  box-shadow:inset 0 0 0 6px rgba(255,255,255,0.02);
+}
+
+/* Event list (right column) */
+.right-col h2{
+  margin:0 0 12px 0;
+  font-size:28px;
+  color:#fff;
+}
+.event-list .event{
+  padding:12px;
+  border-radius:10px;
+  background:var(--card);
+  margin-bottom:10px;
+}
+.event h3{margin:0 0 6px 0; font-size:16px}
+.event p{margin:0; color:var(--muted); font-size:13px}
+
+/* Artists grid */
+.artists-grid .filters{margin-bottom:12px}
+.tags .tag{
+  display:inline-block;
+  margin-right:8px;
+  margin-bottom:8px;
+  padding:6px 10px;
+  background:rgba(255,255,255,0.03);
+  border-radius:999px;
+  font-size:13px;
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,0.02);
+}
+
+/* Grid of cards */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+}
+.card img{width:100%; height:110px; object-fit:cover; display:block}
+.card .body{padding:10px}
+.card h4{margin:0 0 6px 0; font-size:14px}
+.card p{margin:0; font-size:12px; color:var(--muted)}
+
+/* Pagination */
+.pagination{display:flex; align-items:center; gap:12px; margin-top:16px}
+.page{background:transparent; border:0; color:var(--muted); cursor:pointer}
+.page.active{color:#fff; font-weight:600}
+
+/* Footer */
+.footer{
+  margin-top:20px;
+  padding:28px 32px;
+  background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+  border-top:1px solid rgba(255,255,255,0.02);
+}
+.footer-inner{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  color:var(--muted);
+}
+.site-name{font-size:18px; font-weight:600; color:#cfe7cf}
+
+/* Responsive */
+@media (max-width:900px){
+  .container{padding:18px}
+  .right-col{display:none}
+  .grid{grid-template-columns: repeat(auto-fill, minmax(140px,1fr));}
+}

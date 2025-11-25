@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" >
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
+  <title>Mapa Musical — Eventos e Artistas Próximos</title>
+  <link rel="stylesheet" href="style.css" >
+</head>
+<body>
+  <header class="topbar">
+    <div class="left">
+      <div class="avatar">Eu<br><small>Seu Nome</small></div>
+    </div>
+
+    <div class="center">
+      <div class="logo">♪</div>
+    </div>
+
+    <div class="right">
+      <div class="icons">
+        <button type="button" class="circle">+</button>
+        <button type="button" class="circle">⚙</button>
+      </div>
+      <button type="button" id="searchBtn" class="btn search">Busca</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button type="button" class="tab active" data-tab="events">Eventos Próximos</button>
+    <button type="button" class="tab" data-tab="artists">Artistas Próximos</button>
+  </nav>
+
+  <main class="container">
+    <!-- Events Tab -->
+    <section id="events" class="tabcontent active">
+      <div class="left-col">
+        <div class="mapcard">
+          <img class="map" src="florianopolis.webp" alt="mapa" >
+        </div>
+      </div>
+
+      <aside class="right-col" aria-label="Lista de eventos próximos">
+        <h2>Eventos Próximos</h2>
+
+        <div class="event-list" id="eventList">
+          <!-- JS will populate sample events -->
+        </div>
+      </aside>
+    </section>
+
+    <!-- Artists Tab -->
+    <section id="artists" class="tabcontent">
+      <div class="left-col artists-grid">
+        <div class="filters">
+          <div class="tagline">Tags</div>
+          <div class="tags" id="tags">
+            <button type="button" class="tag">Beatmaker ✕</button>
+            <button type="button" class="tag">Rock ✕</button>
+          </div>
+        </div>
+
+        <div class="grid" id="artistGrid">
+          <!-- JS will populate artist cards -->
+        </div>
+
+        <div class="pagination">
+          <button type="button" class="page">← Previous</button>
+          <div class="pages"><button type="button" class="page active">1</button><button type="button" class="page">2</button><span>…</span><button type="button" class="page">68</button></div>
+          <button type="button" class="page">Next →</button>
+        </div>
+      </div>
+
+      <aside class="right-col" aria-label="Mapa de artistas próximos">
+        <div class="mapcard small">
+          <img class="map" src="blog-10.webp" alt="mapa" >
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="site-name">Nome do site</div>
+      <div class="links">
+        <ul>
+          <li>Tópico <br><small>Página</small></li>
+          <li>Tópico <br><small>Página</small></li>
+          <li>Tópico <br><small>Página</small></li>
+        </ul>
+      </div>
+      <div class="socials">⚪ ⚪ ⚪</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
