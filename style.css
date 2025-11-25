@@ -176,3 +176,9 @@ body{
   .right-col{display:none}
   .grid{grid-template-columns: repeat(auto-fill, minmax(140px,1fr));}
 }
+
+/* Event hover effect */
+.event:hover {
+  background-color: #2a3d2c;
+  cursor: pointer;
+}

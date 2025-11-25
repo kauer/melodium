@@ -15,28 +15,75 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.tabcontent').forEach(tc => tc.classList.remove('active'));
       const panel = document.getElementById(target);
       if(panel) panel.classList.add('active');
+      // Redraw map if it was hidden
+      if(target==='events') {
+        map.invalidateSize();
+      }
     });
   });
 
   // Populate events & add map markers
   const events = [
-    {title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.59, lng: -48.54},
-    {title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.60, lng: -48.55},
-    {title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.58, lng: -48.53},
-    {title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.61, lng: -48.56}
+    {id: 0, title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.59, lng: -48.54},
+    {id: 1, title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.60, lng: -48.55},
+    {id: 2, title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.58, lng: -48.53},
+    {id: 3, title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.61, lng: -48.56},
+    {id: 4, title:'Festival de Jazz', desc:'Festival de jazz com artistas renomados.', lat: -27.595, lng: -48.545},
+    {id: 5, title:'Show de Rock', desc:'Show de rock com bandas locais.', lat: -27.605, lng: -48.555}
   ];
 
   const eventList = document.getElementById('eventList');
+  const markers = []; // Array to hold markers
+
   events.forEach(ev => {
+    // Create and add event to the list
     const div = document.createElement('div');
     div.className='event';
     div.innerHTML = `<h3>${ev.title}</h3><p>${ev.desc}</p>`;
+    // Add data attributes for interactivity
+    div.dataset.lat = ev.lat;
+    div.dataset.lng = ev.lng;
+    div.dataset.id = ev.id;
     eventList.appendChild(div);
 
-    // Add marker to the map
-    L.marker([ev.lat, ev.lng]).addTo(map)
+    // Add marker to the map and store it
+    const marker = L.marker([ev.lat, ev.lng]).addTo(map)
       .bindPopup(`<b>${ev.title}</b>`);
+    markers.push(marker);
   });
+
+  // Add click listener to the event list
+  eventList.addEventListener('click', (e) => {
+    const eventEl = e.target.closest('.event');
+    if (eventEl) {
+      const { lat, lng, id } = eventEl.dataset;
+      if (lat && lng && id) {
+        map.flyTo([lat, lng], 15); // Zoom in closer
+        markers[id].openPopup();
+      }
+    }
+  });
+
+  // Add hover listener for map popups
+  eventList.addEventListener('mouseover', (e) => {
+    const eventEl = e.target.closest('.event');
+    if (eventEl) {
+      const { id } = eventEl.dataset;
+      if (id && markers[id]) {
+        markers[id].openPopup();
+      }
+    }
+  });
+  eventList.addEventListener('mouseout', (e) => {
+    const eventEl = e.target.closest('.event');
+    if (eventEl) {
+      const { id } = eventEl.dataset;
+      if (id && markers[id]) {
+        map.closePopup();
+      }
+    }
+  });
+
 
   // Populate artists (sample cards)
   const artistGrid = document.getElementById('artistGrid');
