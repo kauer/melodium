@@ -1,6 +1,11 @@
-// Basic UI: tabs, sample data injection, simple interactivity
-
 document.addEventListener('DOMContentLoaded', () => {
+  // Map initialization
+  const map = L.map('map').setView([-27.5969, -48.5495], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
   // Tab switching
   document.querySelectorAll('.tab').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -13,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Populate events
+  // Populate events & add map markers
   const events = [
-    {title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.'},
-    {title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!'},
-    {title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.'},
-    {title:'Concerto', desc:'Apresentação instrumental com orquestra local.'}
+    {title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.59, lng: -48.54},
+    {title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.60, lng: -48.55},
+    {title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.58, lng: -48.53},
+    {title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.61, lng: -48.56}
   ];
 
   const eventList = document.getElementById('eventList');
@@ -27,6 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     div.className='event';
     div.innerHTML = `<h3>${ev.title}</h3><p>${ev.desc}</p>`;
     eventList.appendChild(div);
+
+    // Add marker to the map
+    L.marker([ev.lat, ev.lng]).addTo(map)
+      .bindPopup(`<b>${ev.title}</b>`);
   });
 
   // Populate artists (sample cards)
