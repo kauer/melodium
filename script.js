@@ -24,16 +24,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Populate events & add map markers
   const events = [
-    {id: 0, title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.59, lng: -48.54},
-    {id: 1, title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.60, lng: -48.55},
-    {id: 2, title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.58, lng: -48.53},
-    {id: 3, title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.61, lng: -48.56},
-    {id: 4, title:'Festival de Jazz', desc:'Festival de jazz com artistas renomados.', lat: -27.595, lng: -48.545},
-    {id: 5, title:'Show de Rock', desc:'Show de rock com bandas locais.', lat: -27.605, lng: -48.555}
+    {id: 0, title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.59, lng: -48.54, address: 'Rua Exemplo, 123, Florianópolis', image: 'florianopolis.webp'},
+    {id: 1, title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.60, lng: -48.55, address: 'Avenida Teste, 456, São José', image: 'blog-10.webp'},
+    {id: 2, title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.58, lng: -48.53, address: 'Rodovia SC-402, 789, Florianópolis', image: 'florianopolis.webp'},
+    {id: 3, title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.61, lng: -48.56, address: 'Praça Principal, 101, Palhoça', image: 'blog-10.webp'},
+    {id: 4, title:'Festival de Jazz', desc:'Festival de jazz com artistas renomados.', lat: -27.595, lng: -48.545, address: 'Parque da Cidade, 202, Florianópolis', image: 'florianopolis.webp'},
+    {id: 5, title:'Show de Rock', desc:'Show de rock com bandas locais.', lat: -27.605, lng: -48.555, address: 'Bar do Rock, 303, Biguaçu', image: 'blog-10.webp'}
   ];
 
   const eventList = document.getElementById('eventList');
+  const eventDetailsContainer = document.getElementById('event-details');
   const markers = []; // Array to hold markers
+
+  // Function to display event details
+  function displayEventDetails(event) {
+    if (event) {
+      eventDetailsContainer.innerHTML = `
+        <img src="${event.image}" alt="${event.title}" class="event-details-image">
+        <h3>${event.title}</h3>
+        <p>${event.desc}</p>
+        <p><strong>Endereço:</strong> ${event.address}</p>
+      `;
+      eventDetailsContainer.style.display = 'block';
+    }
+  }
 
   events.forEach(ev => {
     // Create and add event to the list
@@ -49,6 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add marker to the map and store it
     const marker = L.marker([ev.lat, ev.lng]).addTo(map)
       .bindPopup(`<b>${ev.title}</b>`);
+    
+    marker.on('click', () => {
+      displayEventDetails(ev);
+    });
+
     markers.push(marker);
   });
 
@@ -60,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (lat && lng && id) {
         map.flyTo([lat, lng], 15); // Zoom in closer
         markers[id].openPopup();
+        displayEventDetails(events[id]);
       }
     }
   });
