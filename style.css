@@ -163,16 +163,42 @@ body{
 .footer{
   margin-top:20px;
   padding:28px 32px;
-  background:linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+  background: linear-gradient(90deg, #0f0f10, #2ea043);
   border-top:1px solid rgba(255,255,255,0.02);
 }
 .footer-inner{
   display:flex;
   justify-content:space-between;
-  align-items:flex-start;
+  align-items:center;
   color:var(--muted);
 }
-.site-name{font-size:18px; font-weight:600; color:#cfe7cf}
+
+.footer .links {
+  display: none; /* Remover a lista de links */
+}
+
+.footer .socials {
+  display: none; /* Remover os ícones sociais */
+}
+
+.footer .questionario-btn {
+  background-color: #2ea043; /* Cor verde */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.footer .questionario-btn:hover {
+  background-color: #247b30; /* Cor mais escura do verde */
+}
+
+.site-name{font-size:18px; font-weight:600; color:#2ea043}
 
 /* Responsive */
 @media (max-width:900px){
