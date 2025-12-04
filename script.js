@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Map initialization
-  const map = L.map('map').setView([-27.5969, -48.5495], 13);
+  const mapElement = document.getElementById('map');
+  if (!mapElement) return; // Do not run if map element is not on the page
+
+  const map = L.map(mapElement).setView([-27.5969, -48.5495], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
@@ -40,22 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   }
-
-  // Tab switching
-  document.querySelectorAll('.tab').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-      btn.classList.add('active');
-      const target = btn.dataset.tab;
-      document.querySelectorAll('.tabcontent').forEach(tc => tc.classList.remove('active'));
-      const panel = document.getElementById(target);
-      if(panel) panel.classList.add('active');
-      // Redraw map if it was hidden
-      if(target==='events') {
-        map.invalidateSize();
-      }
-    });
-  });
 
   // Populate events & add map markers
 const events = [
@@ -154,61 +141,63 @@ const events = [
     }
   }
 
-  events.forEach(ev => {
-    // Create and add event to the list
-    const div = document.createElement('div');
-    div.className='event';
-    div.innerHTML = `<h3>${ev.title}</h3><p>${ev.date} às ${ev.time}</p><p>${ev.desc}</p>`;
-    // Add data attributes for interactivity
-    div.dataset.lat = ev.lat;
-    div.dataset.lng = ev.lng;
-    div.dataset.id = ev.id;
-    eventElements.push(div);
-    eventList.appendChild(div);
+  if (eventList) {
+    events.forEach(ev => {
+      // Create and add event to the list
+      const div = document.createElement('div');
+      div.className='event';
+      div.innerHTML = `<h3>${ev.title}</h3><p>${ev.date} às ${ev.time}</p><p>${ev.desc}</p>`;
+      // Add data attributes for interactivity
+      div.dataset.lat = ev.lat;
+      div.dataset.lng = ev.lng;
+      div.dataset.id = ev.id;
+      eventElements.push(div);
+      eventList.appendChild(div);
 
-    // Add marker to the map and store it
-    const marker = L.marker([ev.lat, ev.lng]).addTo(map)
-      .bindPopup(`<b>${ev.title}</b>`);
-    
-    marker.on('click', () => {
-      displayEventDetails(ev);
+      // Add marker to the map and store it
+      const marker = L.marker([ev.lat, ev.lng]).addTo(map)
+        .bindPopup(`<b>${ev.title}</b>`);
+      
+      marker.on('click', () => {
+        displayEventDetails(ev);
+      });
+
+      markers.push(marker);
     });
 
-    markers.push(marker);
-  });
+    // Add click listener to the event list
+    eventList.addEventListener('click', (e) => {
+      const eventEl = e.target.closest('.event');
+      if (eventEl) {
+        const { lat, lng, id } = eventEl.dataset;
+        if (lat && lng && id) {
+          map.flyTo([lat, lng], 15); // Zoom in closer
+          markers[id].openPopup();
+          displayEventDetails(events[id]);
+        }
+      }
+    });
 
-  // Add click listener to the event list
-  eventList.addEventListener('click', (e) => {
-    const eventEl = e.target.closest('.event');
-    if (eventEl) {
-      const { lat, lng, id } = eventEl.dataset;
-      if (lat && lng && id) {
-        map.flyTo([lat, lng], 15); // Zoom in closer
-        markers[id].openPopup();
-        displayEventDetails(events[id]);
+    // Add hover listener for map popups
+    eventList.addEventListener('mouseover', (e) => {
+      const eventEl = e.target.closest('.event');
+      if (eventEl) {
+        const { id } = eventEl.dataset;
+        if (id && markers[id]) {
+          markers[id].openPopup();
+        }
       }
-    }
-  });
-
-  // Add hover listener for map popups
-  eventList.addEventListener('mouseover', (e) => {
-    const eventEl = e.target.closest('.event');
-    if (eventEl) {
-      const { id } = eventEl.dataset;
-      if (id && markers[id]) {
-        markers[id].openPopup();
+    });
+    eventList.addEventListener('mouseout', (e) => {
+      const eventEl = e.target.closest('.event');
+      if (eventEl) {
+        const { id } = eventEl.dataset;
+        if (id && markers[id]) {
+          map.closePopup();
+        }
       }
-    }
-  });
-  eventList.addEventListener('mouseout', (e) => {
-    const eventEl = e.target.closest('.event');
-    if (eventEl) {
-      const { id } = eventEl.dataset;
-      if (id && markers[id]) {
-        map.closePopup();
-      }
-    }
-  });
+    });
+  }
 
   // --- Distance Filter Logic ---
 
@@ -261,30 +250,4 @@ const events = [
   if (distanceSlider) {
     distanceSlider.addEventListener('input', filterEventsByDistance);
   }
-
-  // Populate artists (sample cards)
-  const artistGrid = document.getElementById('artistGrid');
-  // use the other uploaded file as sample thumb
-  const thumb = 'images/blog-10.webp';
-  for(let i=1;i<=8;i++){
-    const card = document.createElement('div');
-    card.className='card';
-    card.innerHTML = `<img src="${thumb}" alt="artista ${i}"><div class="body"><h4>Artista</h4><p>Descrição do artista</p></div>`;
-    artistGrid.appendChild(card);
-  }
-
-  // Simple tag removal (visual)
-  document.getElementById('tags')?.addEventListener('click', (e)=>{
-    if(e.target.classList.contains('tag')){
-      e.target.remove();
-    }
-  });
-
-  // Pagination buttons placeholder
-  document.querySelectorAll('.page').forEach(p=>{
-    p.addEventListener('click', ()=> {
-      document.querySelectorAll('.page').forEach(pp=>pp.classList.remove('active'));
-      p.classList.add('active');
-    })
-  });
 });
