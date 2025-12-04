@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Populate events & add map markers
   const events = [
-    {id: 0, title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.581635, lng: -48.508401, address: 'Rua Exemplo, 123, Florianópolis', image: 'florianopolis.webp'},
-    {id: 1, title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.599931, lng: -48.520032, address: 'Avenida Teste, 456, São José', image: 'blog-10.webp'},
-    {id: 2, title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.587648, lng: -48.576371, address: 'Rodovia SC-402, 789, Florianópolis', image: 'florianopolis.webp'},
-    {id: 3, title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.594374, lng: -48.556806, address: 'Praça Principal, 101, Palhoça', image: 'blog-10.webp'},
-    {id: 4, title:'Festival de Jazz', desc:'Festival de jazz com artistas renomados.', lat: -27.595, lng: -48.545, address: 'Parque da Cidade, 202, Florianópolis', image: 'florianopolis.webp'},
-    {id: 5, title:'Show de Rock', desc:'Show de rock com bandas locais.', lat: -27.59, lng: -48.552, address: 'Bar do Rock, 303, Biguaçu', image: 'blog-10.webp'}
+    {id: 0, title:'Show 1', date: '05/12/2025', time: '20:00', desc:'Descrição rápida do evento.', lat: -27.581635, lng: -48.508401, address: 'Rua Exemplo, 123, Florianópolis', image: 'florianopolis.webp'},
+    {id: 1, title:'Encontro de músicos', date: '07/12/2025', time: '18:30', desc:'Jam session aberta, traga instrumentos!', lat: -27.599931, lng: -48.520032, address: 'Avenida Teste, 456, São José', image: 'blog-10.webp'},
+    {id: 2, title:'Stage Music Park: Show Ana Castela', date: '12/12/2025', time: '22:00', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.587648, lng: -48.576371, address: 'Rodovia SC-402, 789, Florianópolis', image: 'florianopolis.webp'},
+    {id: 3, title:'Concerto', date: '15/12/2025', time: '19:00', desc:'Apresentação instrumental com orquestra local.', lat: -27.594374, lng: -48.556806, address: 'Praça Principal, 101, Palhoça', image: 'blog-10.webp'},
+    {id: 4, title:'Festival de Jazz', date: '20/12/2025', time: '17:00', desc:'Festival de jazz com artistas renomados.', lat: -27.595, lng: -48.545, address: 'Parque da Cidade, 202, Florianópolis', image: 'florianopolis.webp'},
+    {id: 5, title:'Show de Rock', date: '22/12/2025', time: '21:00', desc:'Show de rock com bandas locais.', lat: -27.59, lng: -48.552, address: 'Bar do Rock, 303, Biguaçu', image: 'blog-10.webp'}
   ];
 
   const eventList = document.getElementById('eventList');
@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${event.image}" alt="${event.title}" class="event-details-image">
         <h3>${event.title}</h3>
         <p>${event.desc}</p>
+        <p><strong>Data:</strong> ${event.date}</p>
+        <p><strong>Horário:</strong> ${event.time}</p>
         <p><strong>Endereço:</strong> ${event.address}</p>
       `;
       eventDetailsContainer.style.display = 'block';
@@ -53,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create and add event to the list
     const div = document.createElement('div');
     div.className='event';
-    div.innerHTML = `<h3>${ev.title}</h3><p>${ev.desc}</p>`;
+    div.innerHTML = `<h3>${ev.title}</h3><p>${ev.date} às ${ev.time}</p><p>${ev.desc}</p>`;
     // Add data attributes for interactivity
     div.dataset.lat = ev.lat;
     div.dataset.lng = ev.lng;
