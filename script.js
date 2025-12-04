@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Populate events & add map markers
   const events = [
-    {id: 0, title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.59, lng: -48.54, address: 'Rua Exemplo, 123, Florianópolis', image: 'florianopolis.webp'},
-    {id: 1, title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.60, lng: -48.55, address: 'Avenida Teste, 456, São José', image: 'blog-10.webp'},
-    {id: 2, title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.58, lng: -48.53, address: 'Rodovia SC-402, 789, Florianópolis', image: 'florianopolis.webp'},
-    {id: 3, title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.61, lng: -48.56, address: 'Praça Principal, 101, Palhoça', image: 'blog-10.webp'},
+    {id: 0, title:'Show 1', desc:'Descrição rápida do evento — data, horário e local aproximado.', lat: -27.581635, lng: -48.508401, address: 'Rua Exemplo, 123, Florianópolis', image: 'florianopolis.webp'},
+    {id: 1, title:'Encontro de músicos', desc:'Jam session aberta, traga instrumentos!', lat: -27.599931, lng: -48.520032, address: 'Avenida Teste, 456, São José', image: 'blog-10.webp'},
+    {id: 2, title:'Stage Music Park: Show Ana Castela', desc:'Headliner + bandas locais. Ingressos vendidos online.', lat: -27.587648, lng: -48.576371, address: 'Rodovia SC-402, 789, Florianópolis', image: 'florianopolis.webp'},
+    {id: 3, title:'Concerto', desc:'Apresentação instrumental com orquestra local.', lat: -27.594374, lng: -48.556806, address: 'Praça Principal, 101, Palhoça', image: 'blog-10.webp'},
     {id: 4, title:'Festival de Jazz', desc:'Festival de jazz com artistas renomados.', lat: -27.595, lng: -48.545, address: 'Parque da Cidade, 202, Florianópolis', image: 'florianopolis.webp'},
-    {id: 5, title:'Show de Rock', desc:'Show de rock com bandas locais.', lat: -27.605, lng: -48.555, address: 'Bar do Rock, 303, Biguaçu', image: 'blog-10.webp'}
+    {id: 5, title:'Show de Rock', desc:'Show de rock com bandas locais.', lat: -27.59, lng: -48.552, address: 'Bar do Rock, 303, Biguaçu', image: 'blog-10.webp'}
   ];
 
   const eventList = document.getElementById('eventList');
