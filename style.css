@@ -182,8 +182,8 @@ body{
 }
 
 .footer .questionario-btn {
-  background-color: #2ea043; /* Cor verde */
-  color: #fff;
+  background-color: #000000;
+  color: #2ea043;
   border: none;
   padding: 12px 20px;
   border-radius: 8px;
