@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3>${event.title}</h3>
                 <p>${event.date} - ${event.time}</p>
                 <p>${event.address}</p>
-                <a href="evento-detalhe.html?id=${event.id}">Ver detalhes</a>
               </div>
             </div>
           `).join('')}
