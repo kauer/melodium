@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Artistas Próximos — Mapa Musical</title>
+  <title>Mapa Musical — Eventos e Artistas Próximos</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
   <link rel="stylesheet" href="style.css">
@@ -28,36 +28,38 @@
   </header>
 
   <nav class="tabs">
-    <a href="eventos.html" class="tab">Eventos Próximos</a>
-    <a href="artistas.html" class="tab active">Artistas Próximos</a>
+    <a href="eventos.html" class="tab active">Eventos Próximos</a>
+    <a href="artistas.html" class="tab">Artistas Próximos</a>
   </nav>
 
   <main class="container">
-    <!-- Artists Tab -->
-    <section id="artists" class="tabcontent active" style="display: block;">
-      <div class="left-col artists-grid">
-        <div class="filters">
-          <div class="tagline">Tags</div>
-          <div class="tags" id="tags">
-            <button type="button" class="tag">Beatmaker ✕</button>
-            <button type="button" class="tag">Rock ✕</button>
-          </div>
+    <!-- Events Tab -->
+    <section id="events" class="tabcontent active">
+      <div class="left-col">
+        <div class="filter-container">
+          <label for="distance-slider">Raio de distância:</label>
+          <input type="range" id="distance-slider" min="1" max="50" value="10" disabled>
+          <span id="distance-value">50 km</span>
         </div>
 
-        <div class="grid" id="artistGrid">
-          <!-- JS will populate artist cards -->
+        <div class="mapcard">
+          <div id="map"></div>
         </div>
 
-        <div class="pagination">
-          <button type="button" class="page">← Previous</button>
-          <div class="pages"><button type="button" class="page active">1</button><button type="button"
-              class="page">2</button><span>…</span><button type="button" class="page">68</button></div>
-          <button type="button" class="page">Next →</button>
+        <div id="event-details" class="event-details-card">
+          <!-- Event details will be displayed here -->
         </div>
       </div>
 
-      <aside class="right-col" aria-label="Mapa de artistas próximos">
 
+
+
+      <aside class="right-col" aria-label="Lista de eventos próximos">
+        <h2>Eventos Próximos</h2>
+
+        <div class="event-list" id="eventList">
+          <!-- JS will populate sample events -->
+        </div>
       </aside>
     </section>
   </main>
@@ -72,7 +74,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="data.js"></script>
-  <script src="artistas.js"></script>
+  <script src="eventos.js"></script>
 </body>
 
 </html>

@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Create and add event to the list
       const div = document.createElement('div');
       div.className='event';
-      div.innerHTML = `<h3>${ev.title}</h3><p>${ev.date} às ${ev.time}</p><p>${ev.desc}</p>`;
+      div.innerHTML = `<h3>${ev.title}</h3><strong>${ev.date} às ${ev.time}</strong><p>${ev.desc}</p>`;
       // Add data attributes for interactivity
       div.dataset.lat = ev.lat;
       div.dataset.lng = ev.lng;
