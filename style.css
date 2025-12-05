@@ -114,10 +114,23 @@ main {
   gap:var(--gap);
   padding:28px 32px;
 }
+.container .tagline1{
+  font-size:25px;
+  font-weight:500;
+  color:white;
+  margin-bottom:8px;
+}
+
 .tabcontent{display:flex; gap:var(--gap); width:100%}
 .tabcontent:not(.active){display:none}
 
 .left-col{flex:1}
+.left-col h2{
+  margin: 12px;
+  font-size:25px;
+  color:#fff;
+}
+
 .right-col{width:420px; max-width:45%;}
 
 .filter-container {
