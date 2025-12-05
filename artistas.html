@@ -13,31 +13,29 @@
 <body>
   <header class="topbar">
     <div class="left">
-      <div class="avatar">Eu<br><small>Seu Nome</small></div>
+      <a href="index.html" class="logo-link">
+        <div class="logo">♪</div>
+      </a>
     </div>
 
-    <div class="center">
-      <div class="logo">♪</div>
-    </div>
+    <nav class="tabs">
+        <a href="index.html" class="tab">Início</a>
+        <a href="eventos.html" class="tab">Eventos</a>
+        <a href="artistas.html" class="tab active">Artistas</a>
+    </nav>
 
     <div class="right">
-      <div class="icons">
-      </div>
-      <button type="button" id="searchBtn" class="btn search">Busca</button>
+      <img src="images/1677362804188.jpeg" alt="Avatar de Jorge Casagrande" class="avatar-img">
+      <div class="avatar-name">Jorge Casagrande</div>
     </div>
   </header>
-
-  <nav class="tabs">
-    <a href="eventos.html" class="tab">Eventos Próximos</a>
-    <a href="artistas.html" class="tab active">Artistas Próximos</a>
-  </nav>
 
   <main class="container">
     <!-- Artists Tab -->
     <section id="artists" class="tabcontent active" style="display: block;">
       <div class="left-col artists-grid">
         <div class="filters">
-          <div class="tagline">Tags</div>
+          <div class="tagline">Tags:</div>
           <div class="tags" id="tags">
             <button type="button" class="tag">Beatmaker ✕</button>
             <button type="button" class="tag">Rock ✕</button>
@@ -46,13 +44,6 @@
 
         <div class="grid" id="artistGrid">
           <!-- JS will populate artist cards -->
-        </div>
-
-        <div class="pagination">
-          <button type="button" class="page">← Previous</button>
-          <div class="pages"><button type="button" class="page active">1</button><button type="button"
-              class="page">2</button><span>…</span><button type="button" class="page">68</button></div>
-          <button type="button" class="page">Next →</button>
         </div>
       </div>
 

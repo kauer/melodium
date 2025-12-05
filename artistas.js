@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
   const artistGrid = document.getElementById('artistGrid');
-  if (artistGrid) {
-    artistGrid.innerHTML = ''; // Clear existing cards
+  const tagsContainer = document.getElementById('tags');
 
-    artists.forEach(artist => {
+  function renderArtists(artistsToRender) {
+    artistGrid.innerHTML = ''; // Clear existing cards
+    artistsToRender.forEach(artist => {
       const artistEvent = events.find(e => e.artistId === artist.id);
       const imageUrl = artistEvent ? artistEvent.image : 'images/placeholder.png';
 
@@ -19,17 +20,42 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Simple tag removal (visual)
-  const tags = document.getElementById('tags');
-  if (tags) {
-    tags.addEventListener('click', (e) => {
+  if (tagsContainer) {
+    const allGenres = ['Todos', ...new Set(artists.flatMap(artist => artist.genres))];
+    tagsContainer.innerHTML = '';
+
+    allGenres.forEach(genre => {
+      const tagButton = document.createElement('button');
+      tagButton.type = 'button';
+      tagButton.className = 'tag';
+      tagButton.textContent = genre;
+      if (genre === 'Todos') {
+        tagButton.classList.add('active');
+      }
+      tagsContainer.appendChild(tagButton);
+    });
+
+    tagsContainer.addEventListener('click', (e) => {
       if (e.target.classList.contains('tag')) {
-        e.target.remove();
+        const selectedGenre = e.target.textContent;
+        
+        tagsContainer.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
+        e.target.classList.add('active');
+
+        if (selectedGenre === 'Todos') {
+          renderArtists(artists);
+        } else {
+          const filteredArtists = artists.filter(artist => artist.genres.includes(selectedGenre));
+          renderArtists(filteredArtists);
+        }
       }
     });
   }
 
-  // Pagination buttons placeholder
+  if (artistGrid) {
+    renderArtists(artists);
+  }
+
   const pages = document.querySelectorAll('.page');
   pages.forEach(p => {
     p.addEventListener('click', () => {
