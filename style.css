@@ -83,11 +83,13 @@ body{
 }
 
 /* Layout */
+main {
+  flex: 1 0 auto;
+}
 .container{
   display:flex;
   gap:var(--gap);
   padding:28px 32px;
-  flex: 1 0 auto;
 }
 .tabcontent{display:flex; gap:var(--gap); width:100%}
 .tabcontent:not(.active){display:none}
