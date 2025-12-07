@@ -150,8 +150,6 @@ main {
   border-radius:14px;
   padding:18px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  position:relative;
-  z-index:0;
 }
 .mapcard.small{padding:12px}
 #map {
