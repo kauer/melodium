@@ -115,8 +115,9 @@ main {
   padding:28px 32px;
 }
 .container .tagline1{
+  margin: 12px;
   font-size:25px;
-  font-weight:500;
+  font-weight:700;
   color:white;
   margin-bottom:8px;
 }
@@ -365,4 +366,46 @@ main {
 .event-card a {
   color: var(--accent);
   text-decoration: none;
+}
+
+/* Modal Styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: var(--panel);
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 500px;
+  border-radius: var(--radius);
+  position: relative;
+  color: var(--muted);
+}
+
+.close-button {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
 }

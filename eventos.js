@@ -14,17 +14,88 @@ document.addEventListener('DOMContentLoaded', () => {
   const distanceValue = document.getElementById('distance-value');
   let radiusCircle = null;
 
+  // --- Distance Calculation ---
+  function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+  }
+
   // Use user's location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         userLocation = [position.coords.latitude, position.coords.longitude];
         map.setView(userLocation, 13);
-        L.marker(userLocation)
+        L.marker(userLocation, { title: 'user-marker' })
           .addTo(map)
           .bindPopup('Você está aqui.')
           .openPopup();
         
+        // --- Prototype Location Check ---
+        const florianopolisCenter = { lat: -27.596036408933724, lng: -48.55060897505898 };
+        const distanceToCenter = calculateDistance(
+          userLocation[0], userLocation[1],
+          florianopolisCenter.lat, florianopolisCenter.lng
+        );
+
+        if (distanceToCenter > 20) {
+          const modal = document.getElementById('prototype-modal');
+          const closeButton = document.querySelector('.close-button');
+          const useDefaultLocationButton = document.getElementById('use-default-location');
+
+          const showModal = () => modal.style.display = 'block';
+          const hideModal = () => modal.style.display = 'none';
+
+          const setDefaultLocation = () => {
+            userLocation = [florianopolisCenter.lat, florianopolisCenter.lng];
+            map.setView(userLocation, 13);
+            
+            // Clear previous user marker if any, and add a new one
+            map.eachLayer((layer) => {
+              if (layer.options && layer.options.title === 'user-marker') {
+                map.removeLayer(layer);
+              }
+            });
+
+            L.marker(userLocation, { title: 'user-marker' })
+              .addTo(map)
+              .bindPopup('Localização padrão (Florianópolis).')
+              .openPopup();
+            
+            if (radiusCircle) {
+              radiusCircle.setLatLng(userLocation);
+            } else {
+              radiusCircle = L.circle(userLocation, {
+                radius: distanceSlider.value * 1000,
+                color: '#1e90ff',
+                fillColor: '#1e90ff',
+                fillOpacity: 0.1
+              }).addTo(map);
+            }
+            
+            if(distanceSlider) distanceSlider.disabled = false;
+            filterEventsByDistance();
+            hideModal();
+          };
+
+          if (modal) showModal();
+          if (closeButton) closeButton.onclick = hideModal;
+          if (useDefaultLocationButton) useDefaultLocationButton.onclick = setDefaultLocation;
+          
+          window.onclick = (event) => {
+            if (event.target == modal) {
+              hideModal();
+            }
+          }
+        }
+
         // Draw initial radius circle
         radiusCircle = L.circle(userLocation, {
           radius: distanceSlider.value * 1000, // meters
@@ -43,9 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     );
   }
-
-
-
 
   const eventList = document.getElementById('eventList');
   const eventDetailsContainer = document.getElementById('event-details');
@@ -126,18 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Distance Filter Logic ---
-
-  function calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371; // Radius of the Earth in km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // Distance in km
-  }
 
   function filterEventsByDistance() {
     if (!userLocation || !distanceSlider) return;
