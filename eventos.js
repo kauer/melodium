@@ -89,11 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (closeButton) closeButton.onclick = hideModal;
           if (useDefaultLocationButton) useDefaultLocationButton.onclick = setDefaultLocation;
           
-          window.onclick = (event) => {
-            if (event.target == modal) {
-              hideModal();
-            }
-          }
+          
         }
 
         // Draw initial radius circle
