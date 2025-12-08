@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const mapElement = document.getElementById('map');
   if (!mapElement) return; // Do not run if map element is not on the page
 
-  const map = L.map(mapElement).setView([-27.5969, -48.5495], 13);
+  const map = L.map(mapElement, { scrollWheelZoom: false }).setView([-27.5969, -48.5495], 13);
+  map.once('click', () => map.scrollWheelZoom.enable());
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
@@ -164,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
           map.flyTo([lat, lng], 15); // Zoom in closer
           markers[id].openPopup();
           displayEventDetails(events[id]);
+          eventDetailsContainer.scrollIntoView({ behavior: 'smooth' });
         }
       }
     });

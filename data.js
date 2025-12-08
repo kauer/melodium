@@ -85,8 +85,8 @@ const events = [
     date: '15/12/2025',
     time: '19:00',
     desc: 'A orquestra local apresenta peças clássicas sob regência do maestro Renato Alvim.',
-    lat: -27.647764,
-    lng: -48.62729,
+    lat: -27.615877,
+    lng: -48.627598,
     address: 'Praça Hercílio Luz, Centro Histórico, São José - SC',
     image: 'images/SINFONICA_SERGIPE.jpg'
   },
